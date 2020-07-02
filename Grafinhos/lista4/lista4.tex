@@ -1,0 +1,127 @@
+\documentclass[11pt,a4paper,notitlepage]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, wrapfig}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+
+\renewcommand*{\proofname}{Prova}
+% bold math
+\usepackage{amsbsy}
+
+% draw pictures (and graphs)
+\usepackage{tikz}
+
+% \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% code in latex
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{newink}{rgb}{0,0.1,0.25}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\usepackage{multirow}
+
+% definition equal
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+
+% independence equal
+\newcommand\eqindep{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily indep}}}{=}}}
+
+
+% independent and identically distributed equal
+\newcommand\eqiid{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily i.i.d.}}}{=}}}
+
+% * to cdot
+% \mathcode`\*="8000
+% {\catcode`\*\active\gdef*{\cdot}}
+
+% pseudo-code
+\usepackage[portuguese, linesnumbered]{algorithm2e}
+\newcommand\Recebe{\leftarrow}
+\newcommand\Comment{\vartriangleright}
+\SetKw{Devolva}{devolva}
+% Example:
+% \paragraph{}
+% \SetAlgoNoLine
+% \textsc{Título-Do-Algoritmo}($A, n$)\\
+% \begin{algorithm}[H]
+%   \Devolva $A$
+% \end{algorithm}
+%
+
+% pair ceil
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% pair ceil
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+% images
+\usepackage{graphicx}
+\graphicspath{ {./} }
+% use: \includegraphics[scale=1]{image}
+
+
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0.5em}
+
+\begin{document}
+% \SetAlgoNoLine
+\begin{center}
+  %NOME E NUSP
+  Nome: Rogério Marcos Fernandes Neto\hphantom{xxx} NUSP: 10284632\\
+  %CURSO
+  Curso: Bacharelado em Ciência da Computação\\
+  %MATÉRIA
+  MAC0320 - Introdução à Teoria dos Grafos
+  \paragraph{}
+  \textbf{LISTA 4}
+\end{center}
+\paragraph{E16.} Provar (nos moldes da prova vista em aula para o algoritmo de Kruskal) que o algoritmo
+descrito a seguir constrói uma árvore geradora de custo mínimo.\\
+
+\noindent
+\underline{ALGORITMO DESAPEGADO}\\
+
+\noindent
+Entrada: Grafo conexo $G = (V, A)$, com custos $c_a$ em cada aresta $a \in A$.\\
+Saída: Árvore ótima $T$ (árvore geradora de custo mínimo).\\
+
+\noindent
+1. (Ordenação) Ordene as arestas de G em ordem não-crescente de seus custos. Chame-as de \phantom{xxx}$a_1 , a_2 , \dots , a_m$ , sendo $c(a_1 ) \geq c(a_2 ) \geq \dots \geq c(a_m )$.\\
+2. $T \Recebe G$.\\
+3. Para $i = 1$ até $m$ faça\\
+\hphantom{xxx}se $T - a_i$ é conexo então $T \Recebe T - a_i$\\
+4. Devolva $T$
+
+\paragraph{Solução:}
+\begin{proof}
+  Seja $G$ um grafo e seja $T$ a árvore geradora de custo mínimo constuída pelo algoritmo DESAPEGADO.\\
+  \hphantom{xxx}Notemos, primeiramente, que $T$ realmente é uma árvore geradora. O algoritmo remove arestas enquanto o grafo resultante for conexo. Portanto, $T$ é um grafo conexo minimal, ou seja, é uma árvore.\\
+  \hphantom{xxx}Iremos provar agora que $T$ realmente é ótima. Seja $A(T)=\{e_1, \dots, e_k\}$, onde $c(e_i) \geq c(e_j)$ se $i < j$. Seja $T^*$ uma árvore geradora ótima de $G$ com mais arestas em comum com $T$. Suponha, por absurdo, que $T \neq T^*$. \\
+  \hphantom{xxx}Seja $e_j = uv$ a primeira aresta em $A(T)$ tal que $e_j \notin A(T^*)$ (isso é, $\{ e_1, \dots, e_{j-1}\} \in A(T^*)$) e seja $P$ o único caminho em $T^*$ que conecta $u$ a $v$. Como $e_j$ não foi removida da árvore $T$ significa que no momento de avaliação de $e_j$, $e_j$ era uma ponte e portanto, pelo menos alguma aresta $xy$ diferente de $e_j$ no circuito formado por $P+e_j$ foi removida antes do algoritmo chegar a $e_j$. Como $xy$ está em $P$ então $xy$ está em $T^*$ e como $xy$ foi avaliada antes de $e_j$ então temos que $c(xy) \geq c(e_j)$.\\
+  \hphantom{xxx}Seja $T' = T^* - xy + e_j$. Note que $T$ é uma árvore, pois foi mantida a quantidade de arestas e conexidade. Além disso, note que $c(T') = c(T^*) - c(xy) + c(e_j) \leq c(T^*)$, mas como $T^*$ é ótima então temos que $c(T') = c(T^*)$. Portanto $T'$ também é ótima. Entretanto, $T'$ é uma árvore ótima com mais arestas em comum com $T$ do que $T^*$, contradizendo a escolha de $T^*$. Assim, devemos ter $T = T^*$.
+\end{proof}
+\end{document}

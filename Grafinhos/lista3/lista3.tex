@@ -1,0 +1,154 @@
+\documentclass[11pt,a4paper,notitlepage]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, wrapfig}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+
+\renewcommand*{\proofname}{Prova}
+% bold math
+\usepackage{amsbsy}
+
+% draw pictures (and graphs)
+\usepackage{tikz}
+
+% \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% code in latex
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{newink}{rgb}{0,0.1,0.25}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\usepackage{multirow}
+
+% definition equal
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+
+% independence equal
+\newcommand\eqindep{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily indep}}}{=}}}
+
+
+% independent and identically distributed equal
+\newcommand\eqiid{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily i.i.d.}}}{=}}}
+
+% * to cdot
+\mathcode`\*="8000
+{\catcode`\*\active\gdef*{\cdot}}
+
+% pseudo-code
+\usepackage[portuguese, linesnumbered]{algorithm2e}
+\newcommand\Recebe{\leftarrow}
+\newcommand\Comment{\vartriangleright}
+\SetKw{Devolva}{devolva}
+% Example:
+% \paragraph{}
+% \SetAlgoNoLine
+% \textsc{Título-Do-Algoritmo}($A, n$)\\
+% \begin{algorithm}[H]
+%   \Devolva $A$
+% \end{algorithm}
+%
+
+% pair ceil
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% pair ceil
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+% images
+\usepackage{graphicx}
+\graphicspath{ {./} }
+% use: \includegraphics[scale=1]{image}
+
+
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0.5em}
+
+\begin{document}
+% \SetAlgoNoLine
+\begin{center}
+  %NOME E NUSP
+  Nome: Rogério Marcos Fernandes Neto\hphantom{xxx} NUSP: 10284632\\
+  %CURSO
+  Curso: Bacharelado em Ciência da Computação\\
+  %MATÉRIA
+  MAC0320 - Introdução à Teoria dos Grafos
+  \paragraph{}
+  \textbf{LISTA 3}
+\end{center}
+\paragraph{E11.} Prove que se $G$ é uma árvore tal que $\Delta(G) \geq k$, então $G$ tem pelo menos $k$ folhas.
+\paragraph{Solução:}
+\begin{proof}
+  Seja $G$ uma árvore tal que $\Delta(G) = l \geq k$. Seja $v$ um vértice com maior grau em $G$ e seja $G' = G - v$. Como toda aresta conectada à $v$ é ponte, sabemos que $G'$ tem $l$ componentes,  iremos chamar essas componentes de $G'_i$, $1\leq i \leq l$. Se uma componente $G'_i$ possui um único vértice $u$, então $u$ é folha em $G$. Por outro lado, se $G'_i$ possui pelo menos dois vértices então $G'_i$ é uma árvore não trivial e pelo \textbf{teorema 3.4} sabemos que $G'_i$ possui pelo menos duas folhas, das quais pelo menos uma também é folha de $G$. Portanto $G$ tem pelo menos $l$ folhas e, como $l \geq k$, então $G$ tem pelo menos $k$ folhas.
+\end{proof}
+\paragraph{E12.} Prove que um grafo conexo com $n \geq 1$ vértices e $m$ arestas possui pelo menos $m - n + 1$ circuitos.
+\paragraph{Solução:}
+\begin{proof}
+  Seja $G$ um grafo conexo com $n \geq 1$ vértices e $m$ arestas, iremos mostrar que $G$ possui pelo menos $m - n + 1$ circuitos. Prova por indução em $m$.\\
+  \textbf{Base:} seja $m = n-1$. Então $G$ é um grafo conexo acíclico e possui $0$ circuitos, o que condiz com $m - n + 1 = n - 1 - n + 1 = 0$.\\
+  \textbf{Passo:} seja $m > n-1$ e suponha que a afirmação vale para grafos com até $m-1$ arestas. Como $m >n-1$ então, pelo \textbf{teorema 3.2} $G$ possui pelo menos um circuito $C$. Seja $\alpha$ uma aresta qualquer desse circuito e seja $G' = G - \alpha$. Então $G'$ é conexo, pois a aresta removida pertencia a um circuito, e $G'$ possui a mesma ordem de $G$. Assim, por hipótese, $G'$ possui pelo menos $(m-1) -n +1$ circuitos, e como $G'$ tem exatamente um circuito a menos que $G$ então $G$ possui pelo menos $(m-1) -n + 1 + 1 = m -n + 1$ circuitos.\\
+  Portanto, pelo princípio da indução, vale a afirmação.
+
+\end{proof}
+\newpage
+
+\paragraph{E13.} Prove que todo grafo conexo $G$, simples e não-trivial, tem um árvore geradora $T$ tal que $G - A(T)$ é desconexo.
+\paragraph{Soluçao: }
+Podemos reduzir esse problema a mostrar que dado um vértice $v$ do grafo $G$, existe uma árvore geradora $T$ que contém todas as arestas de $v$, uma vez que $v$ seria um vértice isolado em $G - A(T)$. Segue a prova do fato.
+\begin{proof}
+  Seja $G$ um grafo conexo, simples e não trivial e seja $v$ um vértice qualquer de $G$. Iremos mostrar que existe uma árvore que contém todas as arestas de $v$. Seja $T$ uma árvore geradora de $G$ que contém a maior quantidade de arestas de $v$. Suponha, por absurdo, que $T$ não contém todas as arestas de $v$. Portanto existe um vértice $u$ tal que $uv \in A(G)$ mas $uv \notin A(T)$. Seja $P = (v, \dots, w, u)$ o caminho que liga $v$ a $u$ em $T$ e seja $T' = - wu + uv$. Por construção, $T'$ é conexo e também é gerador de $G$, mas $T'$ possui mais arestas incidentes a $v$ do que $T$, contrariando a hipótese sobre $T$, o que é um absurdo.
+\end{proof}
+
+\paragraph{E14.} Seja $G$ um grafo conexo, $T_1$ e $T_2$ árvores geradoras distintas de $G$, e seja $\alpha$ uma aresta de $T_1$. Prove que existe uma aresta $\beta$ em $T_2$ tal que $T_1 - \alpha + \beta$ é uma árvore geradora de $G$.
+\paragraph{Solução:}
+\begin{proof}
+  Seja $G$ um grafo conexo e suponha que $G$ possui duas árvores geradoras $T_1$ e $T_2$ distintas.
+  Se $T_1$ e $T_2$ possuem alguma aresta $\gamma$ em comum então podemos tomar $\alpha = \beta = \gamma$ e claramente $T_1 -\alpha + \beta$ é uma árvore geradora de $G$. Suponha então que $T_1$ e $T_2$ não possuem arestas em comum. Seja $\beta$ um aresta qualquer de $T_2$, então, pelo \textbf{teorema 3.5}, $T_1 + \beta$ tem exatamente um circuito $C$. Seja $\alpha$ uma aresta de $C$ distinta de $\beta$. Note que $\alpha$ pertence a $T_1$ e como $\alpha$ pertence a um circuito, então $T_1 +\beta -\alpha$ é arvore, conexo e gera $G$.
+\end{proof}
+\paragraph{E15.} Definição: Uma k-coloração dos vértices de um grafo é uma atribuição de no máximo k cores distintas aos vértices desse grafo tal que vértices adjacentes recebem cores distintas.\\
+
+
+Definição: Dizemos que um grafo é equi-bicolorido se tem uma 2-coloração de seus vértices
+com igual número de vértices de cada cor.\\
+
+
+EXERCÍCIO: Prove que toda árvore equi-bicolorida tem pelo menos uma folha de cada cor.
+(*) Alunos da pós-graduação devem fazer duas provas distintas.
+
+\paragraph{Solução:} Para a prova desse fato iremos, primeiramente provar outro: seja $G$ um grafo conexo 2-colorido, a soma dos graus dos vértices de mesma cor é igual a $|A|$.
+\begin{proof}
+  Seja $G = (V, A)$ um grafo conexo 2-colorido. Como $G$ é 2 colorido, $G$ admite uma bipartição $(X, Y)$. Toda aresta de $G$ incide, por definição, em 2 vértices de cores diferentes. Dessa forma, as arestas que incidem a um vértice $v \in X$ não incidem a outros vértices de $X$. Portanto, ao efetuar a soma $\sum_ {v \in X}g(v)$ estamos somando os graus atribuidos à arestas distintas. Como temos $|A|$ arestas, logo temos que $\sum_ {v \in X}g(v) = |A|$.
+\end{proof}
+Agora sim, a prova pedida:
+\begin{proof}
+  Seja $T = (V, A)$ uma árvore equi-bicolorida. Como $T$ é equi-bicolorido, existe uma bipartição $(X, Y)$ de $T$, cada uma representando uma cor. Além disso, devemos ter $|X|=|Y|=|V|/2$ uma vez que existem quantidades iguais de vértices de cada cor.  Suponha, por absurdo, que só existam folhas em um dos conjuntos $X$ ou $Y$. Sem perda de generalidade suponha que tal conjunto é $X$. Isso significa que $g(v) \geq 2, \forall v \in Y$. Como existem $|V|/2$ vértices em $Y$ então sabemos que
+  \begin{align*}
+    \sum_{v \in Y}g(v) & \geq 2*|V|/2 = |V|                             \\
+                       & > |V|-1 = |A|      &  & \text{Pois T é árvore}
+  \end{align*}
+  Mas se $\sum_{v \in Y}g(v) > |A|$ então, pela proposição provada anteriormente, $T$ não é 2-colorida e portanto não é equi-bicolorida, contrariando a hipótese.
+\end{proof}
+\end{document}

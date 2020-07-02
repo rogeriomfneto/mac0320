@@ -1,0 +1,330 @@
+\documentclass[11pt,a4paper,notitlepage]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, wrapfig}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+
+\renewcommand*{\proofname}{Prova}
+% bold math
+\usepackage{amsbsy}
+
+% draw pictures (and graphs)
+\usepackage{tikz}
+
+% \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% code in latex
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{newink}{rgb}{0,0.1,0.25}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\usepackage{multirow}
+
+% definition equal
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+
+% independence equal
+\newcommand\eqindep{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily indep}}}{=}}}
+
+
+% independent and identically distributed equal
+\newcommand\eqiid{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily i.i.d.}}}{=}}}
+
+% * to cdot
+% \mathcode`\*="8000
+% {\catcode`\*\active\gdef*{\cdot}}
+\usepackage[table,xcdraw]{xcolor}
+% pseudo-code
+\usepackage[portuguese, linesnumbered]{algorithm2e}
+\newcommand\Recebe{\leftarrow}
+\newcommand\Comment{\vartriangleright}
+\SetKw{Devolva}{devolva}
+% Example:
+% \paragraph{}
+% \SetAlgoNoLine
+% \textsc{Título-Do-Algoritmo}($A, n$)\\
+% \begin{algorithm}[H]
+%   \Devolva $A$
+% \end{algorithm}
+%
+
+% pair ceil
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% pair ceil
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+% images
+\usepackage{graphicx}
+\graphicspath{ {./} }
+% use: \includegraphics[scale=1]{image}
+
+
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0.5em}
+
+\usetikzlibrary{graphs,graphs.standard}
+
+\newcount\nodecount
+\tikzgraphsset{
+  declare={subgraph N}%
+  {
+    [/utils/exec={\global\nodecount=0}]
+    \foreach \nodetext in \tikzgraphV
+    {  [/utils/exec={\global\advance\nodecount by1}, 
+      parse/.expand once={\the\nodecount/\nodetext}] }
+  },
+  declare={subgraph C}%
+  {
+    [cycle, /utils/exec={\global\nodecount=0}]
+    \foreach \nodetext in \tikzgraphV
+    {  [/utils/exec={\global\advance\nodecount by1}, 
+      parse/.expand once={\the\nodecount/\nodetext}] }
+  }
+}
+\linespread{1.2}
+
+\begin{document}
+% \SetAlgoNoLine
+\begin{center}
+    %NOME E NUSP
+    Nome: Rogério Marcos Fernandes Neto\hphantom{xxx} NUSP: 10284632\\
+    %CURSO
+    Curso: Bacharelado em Ciência da Computação\\
+    %MATÉRIA
+    MAC0320 - Introdução à Teoria dos Grafos
+    \paragraph{}
+    \textbf{LISTA 8}
+\end{center}
+\paragraph*{E30.}Seja $G$ um grafo simples com $n$ vértices, e seja
+$\alpha$ a cardinalidade de um conjunto independente máximo de $G$. Prove
+que\bigskip\newline
+(a)$\frac{n}{\alpha} \leq \chi(G) \leq n - \alpha + 1$.\newline
+(b) Caracterize (diga como são) os grafos $G$ de ordem $n$ tais que
+$\chi(G)= n -\alpha + 1$. 
+\paragraph*{Solução: }
+\textbf{a)}
+\begin{proof}
+Seja $G$ um grafo de cardinalidade $n$ e seja $\alpha$ a cardinalidade
+de um conjunto independente máximo de $G$. Sabemos que existe uma
+partição $\{ X_1, X_2, \dots, X_{\chi(G)} \}$ dos vértices de $G$ em
+conjuntos independentes. Assim, 
+\begin{align*}
+    n &= \sum_{i=1}^{\chi(G)}|X_i|\\
+    n &\leq \sum_{i=1}^{\chi(G)}\alpha && \text{pois $|X_i| \leq
+    \alpha$}\\
+    n &\leq \chi(G)\cdot \alpha\\
+    \implies \dfrac{n}{\alpha} &\leq \chi(G)
+\end{align*}
+
+Por outro lado, sabemos que com exceção de alguma parte $X_j$ com
+tamanho $\alpha$, todas as outras
+tem tamanho pelo menos $1$, isso é, $|X_i| \geq 1$, $i \neq j$. Portanto
+\begin{align*}
+    n &= \sum_{i=1}^{\chi(G)}|X_i|\\
+    n &= \sum_{i=1,i\neq j}^{\chi(G)}|X_i| + |X_j|\\
+    n &\geq \sum_{i=1,i\neq j}^{\chi(G)}1  + \alpha && \text{pois $|X_i|
+    \geq 1$ para $i\neq j$}\\
+    n &\geq (\chi(G) -1) + \alpha\\
+    \implies \chi(G) &\leq n - \alpha + 1
+\end{align*}
+\end{proof}
+\textbf{b)} Grafos dessa forma possuem uma \textit{click} com $n-\alpha$
+vértices e outros $\alpha$ vértices se conectam com todos os vértices da
+click mas não com eles mesmos. Mais formalmente, um grafo $G=(V, A)$ dessa
+forma é definido por
+\begin{align*}
+V &:= \{v_1, \dots, v_n\}\\
+A &:= \{ \{v_iv_j\}: i,j < \alpha \text{ ou  } i<\alpha,j \geq \alpha\}
+\end{align*}
+
+Note que dessa forma os $n-\alpha$ primeiros vértices formam uma click e
+os $\alpha$ ultimos vértices formam um conjunto independente de tamanho
+$\alpha$. Portanto, se particionarmos $V$ no menor número de componentes
+independentes possível, teremos uma componente de tamanho $\alpha$ e
+$\chi(G) -1$ componentes de tamanho $1$. Por construção, não existe
+outra opção de componentes de tamanho $\chi(G)$. Portanto temos que
+\begin{align*}
+    n = \chi(G) -1 + \alpha \implies \chi(G) = n -\alpha + 1
+\end{align*}
+
+\paragraph*{E31.} Seja $G$ um grafo de ordem $n$. Prove, por
+indução em $n$, que $\chi(G) + \chi(\bar{G}) \leq n + 1$.
+
+\paragraph*{Solução:}
+\begin{proof}
+    Seja $G$ um grafo de ordem $n$. Por indução em $n$ iremos mostrar
+    que $\chi(G) + \chi(\bar{G}) \leq n + 1$.\newline
+    \textbf{Base:} Suponha $n = 1$. Nesse caso, claramente tanto $G$
+    quando $\bar{G}$ são coloridos com uma única cor e portanto temos
+    que $\chi(G) + \chi(\bar{G}) =  1 + 1 \leq n + 1$. \newline
+    \textbf{Passo:} Suponha agora que $\geq 2$ e que a afirmação
+    vale para grafos com até $n-1$ vértices.
+    Seja $v$ um vértice qualquer de $G$ e seja $H := G - v$. Como
+    $|V(H)| = n-1$ então, por hipótese, sabemos que $\chi(H) +
+    \chi(\bar{H}) \leq (n-1) + 1 = n$. Sejam $\{X_1, \dots,X_k\}$
+    e$\{X'_1, \dots, X'_{k'} \}$ colorações de $H$ e $\bar{H}$
+    respectivamente. 
+    \begin{enumerate}[a)]
+        \item  Se $\chi(H) + \chi(\bar{H}) \leq n-1$ podemos atribuir
+            a $v$ uma cor distinta das $k$ cores utilizadas em $H$, e
+            outra cor distinta das $k'$ cores utilizadas em
+            $\bar{H}$. Assim obtemos as colorações $\{\{v\}, X_1, \dots,X_k\}$ e
+            $\{\{v\}X'_1, \dots, X'_{k'} \}$ para $G$ e $G'$
+            respectivamente. Portanto
+            \begin{align*}
+                \chi(G) + \chi(\bar{G}) = (\chi(H) + 1) +
+                (\chi(\bar{H}) + 1) \leq n-1 + 2 = n+1
+            \end{align*}
+
+        \item Se $\chi(H) + \chi(\bar{H}) = n$, então afirmo que se
+            for atribuída uma nova cor a $v$ para colorir $G$ então
+            não será atribuída uma nova cor para colorir $v$ em
+            $\bar{G}$ e vice-versa. De fato, suponha que sejam
+            atribuídas novas cores para $v$ em ambas as
+            colorações. Então temos que $g_H(v)\geq k$ e
+            $g_{\bar{H}}(v)\geq k'$. Mas sabemos também que $g_H(v)
+            + g_{\bar{H}}(v) = n-1$. Portanto, temos que $$\chi(H) +
+            \chi(\bar{H}) = k + k' \leq g_H(v)
+            + g_{\bar{H}}(v) = n-1$$
+            o que contradiz nossa hipótese. Portanto sabemos que
+            $\chi(G) +
+            \chi(\bar{G}) \leq \chi(H) +
+            \chi(\bar{H}) + 1 = n + 1$.
+    \end{enumerate}
+    Portanto, pelo princípio da indução, a afirmação vale.
+\end{proof}
+
+\paragraph*{E32.} Seja $G$ um grafo que tem uma coloração própria
+(de seus vértices) na qual toda cor é usada pelo menos 2 vezes. Mostre que
+que $G$ que tem uma coloração (de seus vérties) com $\chi(G)$ cores
+que tem essa mesma propriedade.
+
+\paragraph{Solução:}
+\begin{proof}
+    Seja $G$ um grafo que possui uma coloração própria  $C =
+    \{X_1,\dots, X_k \}$ onde toda cor é usada pelo menos duas vezes.
+    Seja $C' = \{X'_1,\dots, X'_{k'} \}$ uma coloração qualquer de $G$
+    com $\chi(G) = k'$ cores. Se todas as cores de $C'$ são utilizadas
+    duas vezes então não há o que mostrar. Portanto, suponha que exista
+    pelo menos uma cor que possui um único vértice. Iremos repetir o
+    seguinte procedimento a fim de adequar a coloração $C'$:
+    \begin{enumerate}[a)]
+        \item Tome $v$ um vértice que seja o único de sua cor. Caso não
+            exista tal vértice, pare.
+        \item Seja $X_j$ o conjunto de vértices que tem a mesma cor
+            que $v$ em $C$
+        \item Pinte com a mesma cor de $v$ em $C'$ todos vértices de $X_j$.   
+    \end{enumerate}
+    Alguns fatos:
+    \begin{enumerate}
+        \item Note que o conjunto de vértices de $X_j$ podem ser pintados com a
+         mesma cor de $v$ uma vez que $v$ era o único de sua cor e todo
+         vértice em $X_j$ não é adjacente.
+        \item Vértices que ja foram repintados não serão repintados
+            novamente, pois como vimos, todos os vértices de $X_j$ foram
+            pintados com a mesma cor e, como $|X_j| \geq 2$, não existem vértices
+            solitários pertecentes a $X_j$.
+        \item A quantidade de cores não é alterada pois são utilizadas
+            cores ja presentes nos vértices.
+        \item $G$ é finito.
+    \end{enumerate}
+    Devido a esses fatos o algoritmo para e o algoritmo está
+    correto.
+
+    \paragraph{E33.} Sejam $I_1, I_2, \dots, I_n$ intervalos
+    fechados na reta real. Seja $G$ o grafo simples com vértices
+    $v_1, v_e, \dots, v_n$ tal que para todo $i$, $j$,
+    $$
+    v_i \text{ é adjacente a } v_j \text{ se e só se } I_i\cap I_j
+    \neq \emptyset
+    $$
+    Mostre que $\chi(G) = \omega(G)$. (Lembramos que uma
+    \textit{clique} é um subgrafo completo, e $\omega(G)$ denora a
+    cardinalidade de uma clique máxima em G) \textbf{Sugestão:} indução
+    em $n$. Remova um intervalo que tem o menor extremo
+    superior.\medskip\newline
+    OBS: O grafo G acima definido é chamado de \textit{grafo de
+    intervalos}.
+\end{proof}
+
+\paragraph{Solução:}
+
+\begin{proof}
+    Seja $G$ um grafo de intervalos de ordem $n$.\newline
+    \textbf{Base:} Suponha $n=1$. Nesso caso é claro que $\chi(G)
+    = \omega(G) = 1$ e portanto a afirmação vale.\newline
+    \textbf{Passo:} Suponha $n \geq 2$ e que a afirmação vale para
+    grafos de intervalos de ordem até $n-1$. Seja $I_j$ um
+    intervalo com menor extremo inferior e seja $H := G-v_j$. Por
+    hipótese temos que $\chi(H) = \omega(H)$, e portanto existe uma
+    coloração $\{X_1,\dots,X_{k}\}$  dos vértices de $H$.
+    Temos duas situações:
+    \begin{enumerate}[a)]
+        \item $\omega(G) = \omega(H) + 1$. Nessa caso, basta atribuir
+            uma nova cor a $v_j$ diferente das $k$ cores
+            utilizadas em $H$. Assim, $\{{v_j},X_1,\dots,X_{k} \}$ é
+            uma coloração para $G$ com $\chi(G) = k+1 = \omega(H)
+            + 1 = \omega(G)$ cores.
+        \item $\omega(G) = \omega(H)$. Nesse caso, $v_j$ tem, no
+            máximo, $\omega(G)-1$ vizinhos. De fato, como $I_j$ tem
+            extremo superior mínimo, então todo intervalo que
+            intersecta $I_j$ deve conter seu extremo superior. Caso
+            contrário teríamos um intervalo com extremo superior menor
+            que de $I_j$. Mas então $v_j$ e seus vizinhos formam
+            uma clique, pois todo intervalo $I_i$ que
+            intersecta $I_j$ tem como ponto comum o extremo superior
+            de $I_j$. Como sabemos que a maior clique tem tamanho
+                $\omega(G)$, então $I_j$ tem no máximo $\omega(G) -1$
+            vizinhos. Portanto, basta atribuir a $v_j$ uma cor distinta
+            daquela de seus vizinhos. Assim, é possível colorir
+            $G$ com $\omega(G)$ cores.
+    \end{enumerate}
+    Portanto, pelo princípio da indução afirmação vale.
+\end{proof}
+
+\paragraph{B7.} Seja $G$ um grafo tal que todo par de circuitos ímpares
+tem (pelo menos) um vértice em comum. Mostre que que $G$ tem uma
+5-coloração.
+
+\paragraph{Solução:}
+\begin{proof}
+    Seja $G$ um grafo tal que todo par de circuitos ímpares tem pelo
+    menos um vértice em comum. Seja $C$ um circuito ímpar qualquer
+    em $G$ e seja $H:=G-C$. Como todo circuito ímpar em $G$ tem pelo
+    menos um vértice em comum com $C$, então $H$ não tem circuitos ímpares.
+    Portanto $H$ é bipartido. Dessa forma, é possível colorir $H$ com
+    2 cores, digamos $\{X_1, X_2\}$. Como $C$ é um circuito impar então
+    possível colorir $C$ com 3 cores, digamos $\{X_3, X_4, X_5\}$.
+    Mas então $\{X_1, \dots, X_5\}$ é uma coloração para $G$. De fato,
+    $\{X_1, \dots, X_5\}$ partição de $G$ em conjuntos
+    independentes, pois $G$ apenas acrescenta arestas que ligam $C$ à
+    $H$ e não arestas que ligam $H$ à $H$ ou $C$ à $C$. Dessa forma, a
+    independencia entre os conjuntos é mantida.
+\end{proof}
+\end{document}
+

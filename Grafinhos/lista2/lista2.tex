@@ -1,0 +1,177 @@
+\documentclass[11pt,a4paper,notitlepage]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, wrapfig}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+
+\renewcommand*{\proofname}{Prova}
+% bold math
+\usepackage{amsbsy}
+
+% draw pictures (and graphs)
+\usepackage{tikz}
+
+% \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% code in latex
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{newink}{rgb}{0,0.1,0.25}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\usepackage{multirow}
+
+% definition equal
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+
+% independence equal
+\newcommand\eqindep{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily indep}}}{=}}}
+
+
+% independent and identically distributed equal
+\newcommand\eqiid{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily i.i.d.}}}{=}}}
+
+% * to cdot
+\mathcode`\*="8000
+{\catcode`\*\active\gdef*{\cdot}}
+
+% pseudo-code
+\usepackage[portuguese, linesnumbered]{algorithm2e}
+\newcommand\Recebe{\leftarrow}
+\newcommand\Comment{\vartriangleright}
+\SetKw{Devolva}{devolva}
+% Example:
+% \paragraph{}
+% \SetAlgoNoLine
+% \textsc{Título-Do-Algoritmo}($A, n$)\\
+% \begin{algorithm}[H]
+%   \Devolva $A$
+% \end{algorithm}
+%
+
+% pair ceil
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% pair ceil
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+% images
+\usepackage{graphicx}
+\graphicspath{ {./} }
+% use: \includegraphics[scale=1]{image}
+
+
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0.5em}
+
+\begin{document}
+% \SetAlgoNoLine
+\begin{center}
+  %NOME E NUSP
+  Nome: Rogério Marcos Fernandes Neto\hphantom{xxx} NUSP: 10284632\\
+  %CURSO
+  Curso: Bacharelado em Ciência da Computação\\
+  %MATÉRIA
+  MAC0320 - Introdução à Teoria dos Grafos
+  \paragraph{}
+  \textbf{LISTA 2}
+\end{center}
+\paragraph{E7.} Prove que quaisquer dois caminhos mais longos em um grafo conexo possuem (pelo menos)
+um vértice em comum.
+\paragraph*{Solução:}
+\begin{proof}
+  Prova por absurdo. Seja $G$ um grafo conexo e sejam $P$ e $Q$ dois caminhos mais longos de comprimento $k$ nesse grafo. Suponha que $P$ e $Q$ não possuem nenhum vértice em comum.
+  Como $G$ é conexo, então existe um caminho $R = (u,\dots, v)$, onde $u \in V(P)$ e $v \in V(Q)$, que conecta algum vértice de $P$ à algum vértice de $Q$. Seja $P_u$ a maior seção de $P$ tal que $u$ está em umas das extremidades e $Q_v$ a maior seção de $Q$ tal que $v$ está em uma das extremidades. Sem perda de generalidade, suponha que em amobos os casos os vértices correspondentes estão na ponta da direita. Então $\Vert P_u\Vert, \Vert Q_v\Vert \geq k/2$ e, portanto o caminho $P_u*R*Q_v$ possui comprimento $\Vert P_u*R*Q_v\Vert > k/2 + k/2 = k$, o que é um absurdo, pois $P$ e $Q$ são caminhos mais longos.
+\end{proof}
+
+\paragraph{E8.} Prove por indução em $k$ que o conjunto das arestas de um grafo conexo simples com $2k$ arestas,
+$k \geq 2$, pode ser particionado em caminhos de comprimento $2$. A afirmação continuaria válida
+se omitíssemos a hipótese de conexidade? Justifique.
+\paragraph*{Solução:}
+\begin{proof}
+  Prova por indução em $k$. Seja $G$ um grafo conexo simples com $2k$ arestas.\\
+  \textbf{Base:}
+  Suponha $k = 1$, então $G$ tem duas arestas e como $G$ é simples e conexo, deve ter três vértices $u, v$ e $w$. Portanto, o conjunto de arestas de $G$ é $A(G) = \{uv, vw\}$. Esse conjunto pode ser particionado em um único caminho $u$ a $v$.\\
+  \textbf{Passo:} Suponha agora que $k \geq 2$ e aque a afirmação vale para grafos com até $2(k-1)$ arestas. Seja $P = (i,j,k)$ um caminho qualquer de tamanho $2$ e seja $G' = G \backslash P$. Então $G'$ pode ter 1, 2 ou 3 componentes.\\
+  \textbf{Caso 1:} $G'$ tem uma componente só.
+  Nesse caso $G'$ é um grafo conexo com $2(k-1)$ vértices. Nesse caso, por hipótese, $G'$ possui uma partição $Q$ de suas arestas em caminhos de tamanho dois e, portanto, $Q\cup P$ é uma partição em caminhos de tamanho 2 para G.\\
+  \textbf{Caso 2:} $G'$ tem duas componentes $G'_1$ e $G'_2$.\\
+  Se cada componente possui quantidade par de arestas, então, por hipótese, existem partições $Q_1$ de $A(G'_1)$ e $Q_2$ de $A(G'_2)$ em caminhos de comprimento 2. Portanto, $Q_1\cup Q_2 \cup C$ é uma partição para $A(G)$ em caminhos de tamanho 2.\\
+  Se cada componente possui quatidade impar de arestas, então cada uma dessa componentes contém pelo menos um dos vértices $i,j,k$, sendo que esses vértices não ocorrem ao mesmo tempo em duas componentes. Sem perda de generalidade, suponha que $i \in G'_1$ e $j \in G'_2$ e seja $G'' = G'_1 + ij$ e $G''' = G'_2 + jk$. Esses subgrafos tem número par de arestas e são conexos, portanto, por hipótese, existem partições $Q''$ de $A(G'')$ e $Q'''$ de $A(G''')$ Em caminhos de comprimento 2. Portanto $Q''\cup Q'''$ é uma partição para $A(G)$ em caminhos de comprimento 2.\\
+  \textbf{Caso 3:} $G'$ tem três componentes componentes $G'_1$, $G'_2$ e $G'_3$.\\
+  Se cada componente possui quantidade par de arestas, então, por hipótese, existem partições $Q_1$ de $A(G'_1)$, $Q_2$ de $A(G'_2)$ e $Q_3$ de $A(G'_3)$ em caminhos de comprimento 2. Portanto, $Q_1\cup Q_2 \cup Q_3 \cup C$ é uma partição para $A(G)$ em caminhos de tamanho 2.\\
+  Se duas componentes possuem número ímpar de arestas, digamos $G'_1$ e $G'_2$, então cada uma dessas duas componentes contém pelo menos um dos vértices $i,j,k$, sendo que esses vértices não ocorrem ao mesmo tempo em duas componentes. Sem perda de generalidade, suponha que $i \in G'_1$ e $j \in G'_2$ e seja $G'' = G'_1 + ij$ e $G''' = G'_2 + jk$. Esses subgrafos tem número par de arestas e são conexos, portanto, por hipótese, existem partições $Q''$ de $A(G'')$, $Q'''$ de $A(G''')$ e $Q_3$ de $A(G_3)$ em caminhos de comprimento 2. Portanto $Q''\cup Q'''\cup Q_3$ é uma partição para $A(G)$ em caminhos de comprimento 2.\\
+  Portanto, pelo princípio da indução, a afirmação vale.
+\end{proof}
+
+
+\paragraph{E9.}Prove que todo grafo simples $G$ pode ser respresentado como a união de dois grafos disjuntos
+nas arestas $G_1$ e $G_2$ , tais que $G_1$ é acíclico e $G_2$ é um grafo cujos vértices são todos de grau
+par.
+\paragraph*{Solução: }
+\begin{proof}
+  Seja $G$ um grafo simples. Iremos aplicar a ele o seguinte algoritmo:\\
+
+  \SetAlgoNoLine
+  \textsc{Encontra-G1-G2}($G$)\\
+  \begin{algorithm}[H]
+    $F \Recebe G$\\
+    $H \Recebe \emptyset$\\
+    \Enqto{$F$ tem algum circuito $C$}{
+      $F \Recebe F \backslash C$ \\
+      $H \Recebe H \cup C$\\
+    }
+    \Devolva $(F, H)$
+  \end{algorithm}
+  Afirmo que $F = G_1$ e $H = G_2$. De fato, como, a cada iteração, removemos os circuitos presentes em $F$, então, ao fim do algoritmo, $F$ é a parte acíclica de $G$. Por outro lado, a cada iteração do algoritmo, acrescentamos um novo circuito de $G$ em $H$, portanto, ao fim do algoritmo, $H$ possui todos os circuitos de $G$. Como $H$ é composto apenas de circuitos, todos seus vértices possuem grau par. O algoritmo, de fato, para em algum momento. Como, a cada iteração, ou paramos o laço ou reduzimos o tamanho do grafo, é garantido que o laço para em algum momento, e o algoritmo termina.
+\end{proof}
+\paragraph{E10.}Prove que um grafo conexo $G$ é euleriano se e só se $G$ contém circuitos $C_1 , C_2 , \dots , C_k$, dois a
+dois disjuntos nas arestas, tais que $A(G) = C_1 \cup C_2 \cup \dots \cup C_k$ . (Exercício $21$ do Capítulo $2$.)
+\paragraph*{Solução:}
+\begin{proof}
+  Seja $G$ um grafo conexo.\\
+  Suponha que $G$ contém circuitos $C_1 , C_2 , \dots , C_k$, dois a dois disjuntos nas arestas, tais que $A(G) = C_1 \cup C_2 \cup \dots \cup C_k$, iremos mostrar que $G$ é euleriano. Seja $v$ um vértice qualquer de $G$, como cada $C_i$ é disjuntos dos outros então $g_G(v) = \sum_{i=1}^k g_{C_i}(v)$. Cada parcela $g_{C_i}(v)$ vale $2$ se $v \in V(C_i)$ e $0$ caso contrário. Portanto, o grau de todos os vértices é par. Como todos é vértices possuem grau par então, pelo \textbf{Teorema 2.1}, $G$ é euleriano.\\
+  Prova por indução no número $n$ de vértices no grafo. Suponha agora que $G$ é euleriano, iremos mostrar que $A(G)$ pode ser particionado em circuitos.\\
+  \textbf{Base:} Seja $n = 1$. Como o grafo não tem arestas então a afirmação é verdadeira por vacuidade.\\
+  \textbf{Passo:} Suponha que $n\geq 2$ e que a firmação vale grafos com até $n-1$ vértices. Como $G$ é euleriano e conexo, então $\delta(G) \geq 2$, portanto, pela \textbf{proposição 1.5} existe pelo menos um circuito $C$ em $G$. Seja $G' = G - C$. Sabemos que $G'$ possui $k \geq 1$ componentes $G'_i$,$1 \leq i \leq k$, e, além disso, todos os vértices de $G'$ possuem grau par. Como $|V(G'_i)| < |V(G)|$, para todo $i$, então por hipótese cada $G'_i$ pode ser particionado em circuitos. Seja $P$ o conjunto que contém os circuitos de cada uma dessas partições. Como nenhum circuito de $P$ possui arestas em comum com $C$ e $P$ também particiona $G'$, então $Q = C\cup P$ particiona $G$.\\
+  Portanto, pelo principio da indução, vale a afirmação.
+\end{proof}
+\paragraph{B2.}Seja $G$ um grafo simples. Prove que, se $G$ é auto-complementar de ordem $4k + 1$, então $G$ tem
+um vértice de grau $2k$.
+\paragraph*{Solução:}
+\begin{proof}
+  Prova por absurdo. Seja $G$ um grafo simples, auto-complementar de ordem $4k + 1$. Suponha que $G$ não possui um vértice de grau $2k$.
+  Seja $$\phi(x) := \text{número de vértices em $G$ que possuem grau $x$}$$
+  Sabemos que $$\sum_{0\leq x\leq 4k}\phi(x) = |V(G)|$$
+  mas,
+  \begin{align*}
+    \sum_{0\leq x\leq 4k}\phi(x) & = \sum_{0\leq x< 2k}(\phi(x) + \phi(4k - x)) + \phi(2k)                                                     \\
+                                 & = \sum_{0\leq x< 2k}(\phi(x) + \phi(4k - x))            &  & \text{pois G não possui vértice com grau $2k$}
+  \end{align*}
+  Mas como $G$ é auto-complementar, então $\phi(x) = \phi(4k -x)$ para todo $x$. Potanto o somatório acima resulta em um número par, o que é um absurdo, pois sabemos que $|V(G)|$ é impar.
+
+\end{proof}
+\end{document}

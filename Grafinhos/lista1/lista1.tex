@@ -1,0 +1,126 @@
+\documentclass[11pt,a4paper,notitlepage]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, wrapfig}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\renewcommand*{\proofname}{Prova}
+% bold math
+\usepackage{amsbsy}
+
+% draw pictures (and graphs)
+\usepackage{tikz}
+
+% \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% code in latex
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{newink}{rgb}{0,0.1,0.25}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\usepackage{multirow}
+
+% definition equal
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+
+% independence equal
+\newcommand\eqindep{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily indep}}}{=}}}
+
+
+% independent and identically distributed equal
+\newcommand\eqiid{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily i.i.d.}}}{=}}}
+
+% * to cdot
+\mathcode`\*="8000
+{\catcode`\*\active\gdef*{\cdot}}
+
+% pseudo-code
+\usepackage[portuguese, linesnumbered]{algorithm2e}
+\newcommand\Recebe{\leftarrow}
+\newcommand\Comment{\vartriangleright}
+\SetKw{Devolva}{devolva}
+% Example:
+% \paragraph{}
+% \SetAlgoNoLine
+% \textsc{Título-Do-Algoritmo}($A, n$)\\
+% \begin{algorithm}[H]
+%   \Devolva $A$
+% \end{algorithm}
+%
+
+% pair ceil
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% pair ceil
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+% images
+\usepackage{graphicx}
+\graphicspath{ {./} }
+% use: \includegraphics[scale=1]{image}
+
+
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0.5em}
+
+\begin{document}
+% \SetAlgoNoLine
+\begin{center}
+%NOME E NUSP
+Nome: Rogério Marcos Fernandes Neto\hphantom{xxx} NUSP: 10284632\\
+%CURSO
+Curso: Bacharelado em Ciência da Computação\\
+%MATÉRIA
+MAC0320 - Introdução à Teoria dos Grafos
+\paragraph{}
+\textbf{LISTA 1}
+\end{center}
+
+\paragraph*{E1.} Seja $G$ um grafo simples com $n$ vértices. Se $G$ tem exatamente $n-1$ vértices de grau ímpar, quantos vértices de grau ímpar há em $\overline{G}$ (o complemento de $G$)? Justifique.\\
+
+Seja G um grafo simples com n vértices. Se $G$ possui $n-1$ vértices de grau impar então $\overline{G}$ também possui $n-1$ vértices de grau ímpar.
+\begin{proof}
+  Seja $G$ um grafo simples com $n = |V(G)|$ vértices e $n-1$ vértices com grau ímpar. Como $G$ é simples, cada vértice pode estar ligado a, no máximo, outros $n-1$ vértices. Como em $\overline{G}$ dois vértices $u$ e $v$ estão ligados se e só ${u,v}\notin A(V)$ então dado $v \in V(G)$ temos que $n-1  = g_G(v) + g_{\bar{G}}(v)$ para algum $k \in \mathbb{N}$. Mas note que pelo \textbf{Corolário 1.2} sabemos que $n-1$ é par. Portanto, se $g_G(v)$ for ímpar, então $g_{\bar{G}}(v)$ também é ímpar, pois $n-1$ é par. Além disso, se $g_G(v)$ for par, então ${\bar{G}}(v)$ também é par, pois $n-1$ é par. Como a paridade dos vértices se conserva quando trocamos de $G$ para $\overline{G}$ segue que $\overline{G}$ terá $n-1$ vértices de grau ímpar.
+\end{proof}
+
+\paragraph*{E2.} Seja $s = (s_1, s_2, \dots, s_n)$ uma sequência de inteiros não-negatios tal que $\sum_ {i=1}^n s_i$ é par. Mostre que existe um grafo (não necessáriamente simples) cuja sequência de graus é exatamente $s$.
+\begin{proof}
+  Seja $s = (s_1, s_2, \dots, s_n)$ uma sequência de inteiros não-negatios tal que $\sum_ {i=1}^n s_i$ é par. Seja $G = (V, A)$ um grafo onde $V = \{v_1, v_2, \dots, v_n\}$. Iremos construir o conjunto de arestas $A$ de tal forma que a sequência de graus de de seus vértices coincida com $s$. Como $\sum_ {i=1}^n s_i$ é par, então existe um número par de termos de grau ímpar na sequência $s$. Seja $V_{\text{impar}} = \{v_i \in V : s_i \text{ é impar}\}$ e $V_{\text{par}} = \{v_i \in V : s_i \text{ é par}\}$. Seja $P$ uma partição de $V_{\text{impar}}$ onde cada parte possui dois elementos. Para cada vértice $v_i$ de $V$ existem duas opções: $v_i \in V_{\text{par}}$ ou $v_i \in V_{\text{impar}}$.\\
+  \textbf{Caso 1:} $v_i \in V_{\text{par}}$. Nesse caso criamos $s_i/2$ \textit{loops} no vértice $v_i$. Dessa forma o grau $v_i$ será $g(v_i) = 2(s_i/2) = s_i$.\\
+  \textbf{Caso 2:} $v_i \in V_{\text{impar}}$. Nesse caso criamos o arco $a = \{v_i, v_j\}$ tal que $\{v_i, v_j\} \in P$ e também outros $\floor{s_i/2}$ \textit{loops} em $v_i$. Assim, $v_i$ terá grau igual a $g(v_i) = 2\floor{s_i/2} + 1 = s_i$, pois $s_i$ é impar.\\
+  Dessa forma, garantimos que $g(v_i) = s_i$ para todo $i$.
+\end{proof}
+
+\paragraph*{E3.} Considere um campeonato de xadrez onde cada dois jogadores disputam no máximo uma partida entre sí. Afirmamos que, em qualquer etapa de um tal campeonato há sempre (pelo menos) dois jogadores que realizaram exatamente o mesmo número de partidas.\\
+Traduza a afirmação acima para a linguagem de grados e prove-a formalmente. Sugestão: pensar num grafo que representa um campeonato de xadrez (explicar a correspondência), e expressar na linguagem de grafos a afirmação feita acima.\\
+
+Podemos modelar o campeonato de xadrez com um grafo $G = (V, A)$. O conjunto de vértices $V$ é composto pelos jogadores e o conjunto de arestas $A$ é composto por arestas que ligam dois vértices $u, v \in V$ se e só se os jogadores $u$ e $v$ disputaram um partida. Como não existe campeonato com um só jogador, temos que $|V| \geq 2$. Além disso, como jogadores disputam no máximo uma partida entre si, podemos dizer que o grafo é simples. Nessa linguagem, devemos provar que o grafo possui pelo menos dois vértices com o mesmo grau. Mais formalmente, devemos provar que $\exists u, v \in V : g(u) = g(v)$.
+\begin{proof}
+  Seja $G = (V, A)$ um grafo simples com $|V| \geq 2$. Cada vértice do grafo pode ter grau igual a algum valor entre $0$ e $|V|-1$, ou seja, $|V|$ valores diferentes. Entretanto, os graus $0$ e $|V|-1$ não podem coexistir no mesmo grafo. Pois se algum vértice $v \in V$ possui grau $g(v) = |V| - 1$ então $v$ está conectado a todos os outros vértices e, portanto não existe vértice $w \in V$ tal que $g(w) = 0$. Por outro lado, se existe algum vértice $v \in V$ possui grau $g(v) = 0$ então não existe nenhum vértice $w \in V$ tal que $g(w) = |V|-1$, pois, caso existisse, $w$ estaria ligado a $v$, mas sabemos que $g(v) = 0$. Portanto cada vértice num mesmo grafo só pode assumir um dentre $|V|-1$ graus distintos. Como temos $|V|$ vértices então pelo princípio da casa dos pombos existem pelo menos dois vértices $u, v \in V$ tais que $g(u) = g(v)$.
+\end{proof}
+
+
+\end{document}

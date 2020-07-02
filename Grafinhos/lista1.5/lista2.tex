@@ -1,0 +1,165 @@
+\documentclass[11pt,a4paper,notitlepage]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, wrapfig}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+
+\renewcommand*{\proofname}{Prova}
+% bold math
+\usepackage{amsbsy}
+
+% draw pictures (and graphs)
+\usepackage{tikz}
+
+% \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% code in latex
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{newink}{rgb}{0,0.1,0.25}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\usepackage{multirow}
+
+% definition equal
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+
+% independence equal
+\newcommand\eqindep{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily indep}}}{=}}}
+
+
+% independent and identically distributed equal
+\newcommand\eqiid{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily i.i.d.}}}{=}}}
+
+% * to cdot
+\mathcode`\*="8000
+{\catcode`\*\active\gdef*{\cdot}}
+
+% pseudo-code
+\usepackage[portuguese, linesnumbered]{algorithm2e}
+\newcommand\Recebe{\leftarrow}
+\newcommand\Comment{\vartriangleright}
+\SetKw{Devolva}{devolva}
+% Example:
+% \paragraph{}
+% \SetAlgoNoLine
+% \textsc{Título-Do-Algoritmo}($A, n$)\\
+% \begin{algorithm}[H]
+%   \Devolva $A$
+% \end{algorithm}
+%
+
+% pair ceil
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% pair ceil
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+% images
+\usepackage{graphicx}
+\graphicspath{ {./} }
+% use: \includegraphics[scale=1]{image}
+
+
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0.5em}
+
+\begin{document}
+% \SetAlgoNoLine
+\begin{center}
+%NOME E NUSP
+Nome: Rogério Marcos Fernandes Neto\hphantom{xxx} NUSP: 10284632\\
+%CURSO
+Curso: Bacharelado em Ciência da Computação\\
+%MATÉRIA
+MAC0320 - Introdução à Teoria dos Grafos
+\paragraph{}
+\textbf{LISTA 2}
+\end{center}
+
+\paragraph*{E4.}
+\begin{enumerate}[(a)]
+  \item Prove que um grafo simples de ordem n com mais do que $n^2/4$ arestas não é bipartido.
+  \item Encontre todos (diga como são estruturalmente) os grafos bipartidos simples de ordem $n$ com $\floor{n^2/4}$ arestas. Justifique.
+\end{enumerate}
+\paragraph*{Solução:}
+\begin{enumerate}[(a)]
+  \item 
+  \begin{proof}
+    Seja $G$ um grafo de ordem $n$ com mais que $n^2/4$ arestas. Pelo \textbf{teorema de Mantel} $G$ possui um triângulo. Como um triângulo é circuito impar, então pela \textbf{proposição 1.6}, $G$ não é bipartido.
+  \end{proof}
+  \item Grafos bipartidos simples de ordem $n$ com $\floor{n^2/4}$ são grafos bipartidos completos onde $|X| = \floor{n/2}$ e $|Y| = \ceil{n/2}$ ou $|Y| = \floor{n/2}$ e $|X| = \ceil{n/2}$.
+  \begin{proof}
+    Iremos mostrar que $G$ é completo. Seja $G$ um grafo de ordem $n$ com uma bipartição $(X, Y)$ e $\floor{n^2/4}$ arestas. Suponha que o grafo $G$ não é completo, isso é, que existem vértices $u \in X$ e $v \in Y$ tais que $uv \notin A(G)$. Como $u$ e $v$ são de partes diferentes, poderiamos acrescentar a aresta $uv$ ao grafo e $G$ continuaria sendo bipartido. Entretanto, agora, $G$ seria um grafo bipartido com mais de $\floor{n^2/4}$ arestas, o que, pelo item \textbf{(a)} é um absurdo. Portanto, $G$ é bipartido completo.\\
+    Iremos mostrar que $|X| = \floor{n/2}$ e $|Y| = \ceil{n/2}$ ou vice versa. Como $G$ é completo, o número de arestas no grafo é $|X|\cdot|Y| = \floor{n^2/4}$. Mas $|Y| = n - |X|$, portanto, 
+    $$
+    |X|\cdot(n - |X|) = \floor{n^2/4} \Longleftrightarrow |X|^2 - n|X| + \floor{n^2/4} = 0
+    $$
+    Se $n$ é par, então,
+    \begin{align*}
+      |X|^2 - n|X| + \floor{n^2/4} &= |X|^2 - n|X| + n^2/4\\ 
+      &= (|X|-n/2)^2 = 0\\
+      &\implies |X| = n/2 = \floor{n/2}\\
+      &\hphantom{xxxi} \text{e } |Y| = n/2 = \ceil{n/2}
+    \end{align*}
+    Se $n$ é impar, então,
+    \begin{align*}
+      |X|^2 - n|X| + \floor{n^2/4} &= |X|^2 - n|X| + (n^2-1)/4\\ 
+      &= (|X|-(n+1)/2)(|X|-(n-1)/2) = 0\\
+      &\implies |X| = (n-1)/2 = \floor{n/2}\\
+      &\hphantom{xxxi} \text{e } |Y| = (n+1)/2 = \ceil{n/2}\\
+      &\hphantom{xxxi} \text{ou}\\
+      &\hphantom{xxxxe} |X| = (n+1)/2 = \ceil{n/2}\\
+      &\hphantom{xxxi} \text{e } |Y| = (n-1)/2 = \floor{n/2}\\
+    \end{align*} 
+
+  \end{proof}
+\end{enumerate}
+
+\paragraph{E5.} Um grafo é \textit{auto-complementar} se é simples e é isomorfo ao seu complemento. Mostre que, se $G$ é um  grafo auto-complementar de ordem $n$, então $n \equiv 0 \text{ (mod } 4)$ ou $n \equiv 1 \text{ (mod } 4)$.
+\paragraph{Solução:}
+  \begin{proof} 
+  Seja $G$ um grafo auto-complementar de ordem $n$. Sabemos que $g_G(v) + g_{\bar{G}}(v) = n-1$, portanto $$\sum_{v \in V(G)}g_G(v) + g_{\bar{G}}(v) = n(n-1)$$ Por outro lado, pela \textbf{porposição 1.1} sabemos que
+  $\sum_{v \in V(G)}g_(v) + g_{\bar{G}}(v) = 2|A(G)| + 2|A(\bar{G})|$ 
+  mas, como $G \cong \bar{G}$, então $|A(G)| = |A(\bar{G})|$ e, portanto,
+  $$\sum_{v \in V(G)}g_G(v) + g_{\bar{G}}(v) = 4|A(G)|$$
+  Assim, sabemos que 
+  $$
+  n(n-1) = 4|A(G)| \Longleftrightarrow 4|n \text{ ou } 4|n-1
+  $$ 
+  ou seja,
+  $$
+  n \equiv 0 \text{ (mod } 4) \text{ ou } n \equiv 1 \text{ (mod } 4)
+  $$
+  \end{proof}
+  \newpage
+\paragraph{E6.} É possível que um grafo auto-complementar de ordem 100 tenha exatamente um vértice de grau 50? Justifique.
+\paragraph{Solução:} Não é possível.\\
+\begin{proof}
+  Seja $G$ um grafo auto-complementar de ordem $n = 100$ com exatamente um vértice $v$ tal que $g_G(v) = 50$. Como $g_G(v) + g_{\bar{G}}(v) = n-1$ Então $v$ também é o único vértice em $\bar{G}$ tal que $g_{\bar{G}}(v) = 49$. Como $G \cong \bar{G}$, então existe um único vértice $u$ em $G$ tal que $g_G(u) = 49$ e, analogamente, $g_{\bar{G}}(v) = 50$. Pelo fato de $u$ e $v$ serem os únicos com seu grau, devemos ter $\varphi(u) = v$ e $\varphi(v) = u$, onde $\varphi$ é a função que define o isomorfismo. Suponha que $vu \in A(G)$, entao devemos ter $\varphi(v)\varphi(u) = uv = vu \in A(\bar{G})$, o que é um absurdo, pois, pela definição de complemento, $uv \in G \Longleftrightarrow uv \notin \bar{G}$. Por outro lado, suponha que $uv \notin V(G)$, isso implica que $uv \in V(\bar{G})$, o que é um absurdo, pois, segundo a definição de isormofismo, $uv \in G \Longleftrightarrow \varphi(v)\varphi(u) = uv = vu \in \bar{G}$.
+\end{proof}
+
+\end{document}

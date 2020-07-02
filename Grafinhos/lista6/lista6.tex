@@ -1,0 +1,234 @@
+\documentclass[11pt,a4paper,notitlepage]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, wrapfig}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+
+\renewcommand*{\proofname}{Prova}
+% bold math
+\usepackage{amsbsy}
+
+% draw pictures (and graphs)
+\usepackage{tikz}
+
+% \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% code in latex
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{newink}{rgb}{0,0.1,0.25}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\usepackage{multirow}
+
+% definition equal
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+
+% independence equal
+\newcommand\eqindep{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily indep}}}{=}}}
+
+
+% independent and identically distributed equal
+\newcommand\eqiid{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily i.i.d.}}}{=}}}
+
+% * to cdot
+% \mathcode`\*="8000
+% {\catcode`\*\active\gdef*{\cdot}}
+
+% pseudo-code
+\usepackage[portuguese, linesnumbered]{algorithm2e}
+\newcommand\Recebe{\leftarrow}
+\newcommand\Comment{\vartriangleright}
+\SetKw{Devolva}{devolva}
+% Example:
+% \paragraph{}
+% \SetAlgoNoLine
+% \textsc{Título-Do-Algoritmo}($A, n$)\\
+% \begin{algorithm}[H]
+%   \Devolva $A$
+% \end{algorithm}
+%
+
+% pair ceil
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% pair ceil
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+% images
+\usepackage{graphicx}
+\graphicspath{ {./} }
+% use: \includegraphics[scale=1]{image}
+
+
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0.5em}
+
+\begin{document}
+% \SetAlgoNoLine
+\begin{center}
+    %NOME E NUSP
+    Nome: Rogério Marcos Fernandes Neto\hphantom{xxx} NUSP: 10284632\\
+    %CURSO
+    Curso: Bacharelado em Ciência da Computação\\
+    %MATÉRIA
+    MAC0320 - Introdução à Teoria dos Grafos
+    \paragraph{}
+    \textbf{LISTA 5}
+\end{center}
+\paragraph{E21.} Prove que uma árvore tem no máximo um emparelhamento perfeito.
+\paragraph{Solução:}
+\begin{proof}
+    Seja $T$ uma árvore. Se $T$ não possui um  emparelhamento perfeito então não há o que provar,
+    portanto, suponha que $T$ possui um emparelhamento perfeito $E$.\\
+    Suponha, por absurdo, que existe um
+    outro emparelhamento $E'$, distinto de $E$. Seja $$H = G[E\triangle E']$$
+    Temos $g_H(v) \geq 2$ para
+    todo $v\in H$ e, como $T$ é árvore e ambos $E$ e $E'$ são perfeitos, então todas as componentes de
+    $H$ devem ser caminhos de comprimeto par. Afirmo que todas as componentes são caminhos de
+    comprimento zero. De fato suponha que existe alguma componente $P = (v_1, \dots, v_n)$ que é um
+    caminho de comprimento maior que zero, e sem perda de generalidade suponha que $v_1v_2 \in E$. Como
+    $P$ tem comprimento par então $v_{n-1}v_n \in E'$ e $v_n$ deve ser um vértice solitário em $E$, o
+    que contradiz a hipótese de $E$ ser perfeito. Portanto $H$ não possui arestas. Mas se $H$ não
+    possui arestas então
+    \begin{align*}
+                 & E\triangle E' = \emptyset \\
+        \implies & E = E'
+    \end{align*}
+    contradizendo a hipótese sobre a
+    distinção entre $E$ e $E'$, o que completa a prova.
+\end{proof}
+\paragraph{E22.} Sejam $E$ e $F$ emparelhamentos disjuntos num grafo $G$,
+com $|E| > |F|$. Prove que existem emparelhamentos $E'$ e $F'$ tais que
+$|E'| = |E| - 1$, $|F'| = |F| - 1$ e  $E'\cup F' = E\cup F$.\\
+\paragraph*{Solução:}
+\begin{proof}
+ Sejam $E$ e $F$ emparelhamentos disjuntos num grafo $G$,
+    com $|E| > |F|$. Seja $H := G[E\triangle F]$. Como $g_H(v) \leq 2$
+    para todo $v \in H$ então todas as componentes em $H$ são caminhos
+    ou circuitos de tamanho par. Como $|E| > |F|$ então existe pelo
+    menos uma componente em $H$ que é um caminho $P$ de comprimento
+    impar, com mais arestas de $E$ que $F$. Sejam
+    \begin{align*}
+        E^{*} = E \cap A(P)\\
+        F^{*} = F \cap A(P)
+    \end{align*}
+    Então temos que
+    \begin{align*}
+        E' = E - E^{*} + F^{*}\\
+        F' = F - F^{*} + E^{*}
+    \end{align*}
+    Como trocamos o emparelhamento de uma componente por outro, então ambos $E'$
+    e $F'$ são emparelhamentos. Além disso, como o $P$ tinha tamanho
+    ímpar, então temos que $|E'| = |E| - 1$ e $|F'| = |F| + 1$. Por fim,
+    como em $E'\cup F'$ foram utilizadas as mesmas arestas que em $E
+    \cup F$, então temos que $E \cup F = E' \cup F'$.
+\end{proof}
+\paragraph*{E23. } Seja $G$ um grafo $(X, Y)-$bipartido com $|X| =
+|Y| = n \geq 1$. Prove que se $|A(G)| > n(n-1)$ então $G$ contém
+um emparelhamento perfeito. (Sugestão: aplicar Teorema de Hall).
+\paragraph*{Solução: }
+\begin{proof}
+     Seja $G$ um grafo $(X, Y)-$bipartido com $|X| =
+    |Y| = n \geq 1$ e $|A(G)| > n(n-1)$. Suponha, por absurdo, que $G$ não tem um emparelhamento
+perfeito. Como temos $|X| = |Y|$, isso implica que não existe
+    emparelhamento que cobre $X$. Portanto, pelo Teorema de Hall, existe
+    algum conjunto $S \subseteq X$ tal que $|Adj(S)| < |S|$. Dessa forma,
+    existem no máximo $$|S|*|Adj(S)| \leq |S|*(|S|-1)$$ arestas que ligam $S$ à
+    $Y$. Por outro lado, existem no máximo $$(|X|-|S|)|Y| =
+    (n-|S|)n$$ arestas que ligam $X-S$ à $Y$. Portanto, ao todo, o
+    número de arestas que liga $X$ à $Y$, ou seja, $A(G)$, é menor igual a
+    \begin{align*}
+        |S|*(|S|-1) + (n-|S|)n &= |S|^2 - |S| + n^2 -|S|n\\
+        &=n^2 + |S|(|S| -1 -n)\\
+        &\leq n^2 + n(n -1 -n) && \text{$|S|$ é no máximo $|X|=n$}\\
+        &= n^2 -n = n(n-1)
+    \end{align*}
+    o que contradiz a nossa hipótese. Portanto, a afirmação vale.
+\end{proof}
+    \paragraph*{E24. }Prove que se $G$ é um grafo
+    $(X,Y)$-bipartido com pelo menos uma aresta e $g(x)\geq g(y)$
+    para todo $x\in X$ e $y\in Y$, então $G$ tem um
+    emparelhamento que cobre $X$.
+    \paragraph*{Solução:}
+    \begin{proof}
+        Seja $G$ um grafo $(X, Y)$-bipartido com $A(G)\geq 1$ e $g(x)\geq g(y)$
+    para todo $x\in X$ e $y\in Y$. Seja $S\subseteq X$ e defina
+        \begin{align*}
+            A_1 &= \{a \in A(G): a \text{ incide em } S\}\\
+            A_2 &= \{a \in A(G): a \text{ incide em } Adj(S)\}
+        \end{align*}
+    Claramente, $A_1 \subseteq A_2$ e, portanto, $|A_1| \leq |A_2|$.
+    Seja $k = \delta(S)$. Como todo vértice em $S$ possui grau maior
+     ou igual a $k$, então temos que $k|S| \leq |A_1|$. Por
+     outro lado, como $g(x)\geq g(y)$
+    para todo $x\in X$ e $y\in Y$, sabemos que $k =
+    \Delta(Adj(S))$ e, portanto, $|A_2|\leq k|Adj(S)|$. Mas então
+    temos que 
+    \begin{align*}
+        & k|S| \leq |A_1| \leq |A_2| \leq k|Adj(S)|\\
+        \implies & k|S| \leq k|Adj(S)|\\
+        \implies & |S| \leq |Adj(S)|
+    \end{align*}
+    Portanto, pelo Teorema de Hall, existe um emparelhamento que
+    cobre $X$.
+    \end{proof}
+\paragraph*{E25. } Um \textit{retangulo latino} $m\times n$ é uma
+matriz com $m$ linhas e $n$ colunas, cujas entradas são símbolos,
+sendo que cada símbolo ocorre no máximo uma vez em cada linha e em cada
+colunas. Um \textit{quadrado latino} de ordem $n$ ŕ um retangulo
+latino $n\times n$ sobre n símbolos.\medskip\\
+Prove: Se $m < n$ então todo retangulo latino $m\times n$ sobre $n$
+símbolos pode ser estendido a um quadrado latino de ordem $n$.
+\paragraph*{Solução: }
+\begin{proof}
+    Suponha que temos um retangulo latino $m\times n$, com $m < n$.
+    Iremos mostrar que é possível expandir esse retangulo para um
+    retangulo latino $(m+1)\times n$.\\
+    Vamos construir um grafo $G$ $(X,Y)$-bipartido que
+    represente esse retangulo. Sejam:
+    \begin{align*}
+        X &:= \{1, \dots, n\} && \text{O conjunto dos $n$
+        símbolos}\\
+        Y &:= \{1, \dots, n\} && \text{O conjunto das $n$ conlunas do
+        retangulo}\\ 
+    \end{align*}
+    e seja:
+    $$
+    A(G) = \{xy, x \in X, y \in Y: \text{símbolo $x$ ainda não
+        ocupou a coluna $y$}\}
+    $$
+    Como cada símbolo aparece em uma única coluna a cada linha, então
+    temos que $g(x) = n-m > 0$, para todo $x\in X$. Pelo mesmo motivo,
+    sabemos também que $g(y) = n-m > 0$, para todo $y \in Y$. Portanto,
+    temos que $g(y) \geq g(x)$
+    para todo $y\in Y$ e $x\in X$, e pela questão \textbf{E24} sabemos
+    que existe um emparelhamento que cobre $Y$, isso é, existe uma nova
+    reorganização dos $n$ símbolos de modo que não hajam
+    conflitos nem nas colunas nem nas linhas do retangulo.
+    Portanto, é possível incluir uma nova linha na tabela.
+\end{proof}
+\end{document}

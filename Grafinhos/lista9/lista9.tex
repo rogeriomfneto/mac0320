@@ -1,0 +1,291 @@
+
+\documentclass[11pt,a4paper,notitlepage]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, wrapfig}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+
+\renewcommand*{\proofname}{Prova}
+% bold math
+\usepackage{amsbsy}
+
+% draw pictures (and graphs)
+\usepackage{tikz}
+
+% \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% code in latex
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{newink}{rgb}{0,0.1,0.25}
+\usepackage{caption}
+\usepackage{listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\usepackage{multirow}
+
+% definition equal
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+
+% independence equal
+\newcommand\eqindep{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily indep}}}{=}}}
+
+
+% independent and identically distributed equal
+\newcommand\eqiid{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily i.i.d.}}}{=}}}
+
+% * to cdot
+% \mathcode`\*="8000
+% {\catcode`\*\active\gdef*{\cdot}}
+\usepackage[table,xcdraw]{xcolor}
+% pseudo-code
+\usepackage[portuguese, linesnumbered]{algorithm2e}
+\newcommand\Recebe{\leftarrow}
+\newcommand\Comment{\vartriangleright}
+\SetKw{Devolva}{devolva}
+% Example:
+% \paragraph{}
+% \SetAlgoNoLine
+% \textsc{Título-Do-Algoritmo}($A, n$)\\
+% \begin{algorithm}[H]
+%   \Devolva $A$
+% \end{algorithm}
+%
+
+% pair ceil
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% pair ceil
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+% images
+\usepackage{graphicx}
+\graphicspath{ {./} }
+% use: \includegraphics[scale=1]{image}
+
+
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0.5em}
+
+\usetikzlibrary{graphs,graphs.standard}
+
+\newcount\nodecount
+\tikzgraphsset{
+  declare={subgraph N}%
+  {
+    [/utils/exec={\global\nodecount=0}]
+    \foreach \nodetext in \tikzgraphV
+    {  [/utils/exec={\global\advance\nodecount by1}, 
+      parse/.expand once={\the\nodecount/\nodetext}] }
+  },
+  declare={subgraph C}%
+  {
+    [cycle, /utils/exec={\global\nodecount=0}]
+    \foreach \nodetext in \tikzgraphV
+    {  [/utils/exec={\global\advance\nodecount by1}, 
+      parse/.expand once={\the\nodecount/\nodetext}] }
+  }
+}
+\linespread{1.2}
+
+\begin{document}
+% \SetAlgoNoLine
+\begin{center}
+    %NOME E NUSP
+    Nome: Rogério Marcos Fernandes Neto\hphantom{xxx} NUSP: 10284632\\
+    %CURSO
+    Curso: Bacharelado em Ciência da Computação\\
+    %MATÉRIA
+    MAC0320 - Introdução à Teoria dos Grafos
+    \paragraph{}
+    \textbf{LISTA 9}
+\end{center}
+    \paragraph{E34.} Mostre que para todo par ($k,l$) tais que $1\leq k
+    \leq l$, existe um grafo $G$ tal que $\kappa{G} = k$ e
+    $\kappa'(G) = l$.
+    \paragraph{Solução:}
+    \begin{proof}
+        Seja $G_1$ um grafo completo com $2l$ arestas. Seja $G_2$ o grafo
+        composto por $G_1$ mais um conjunto $S$ de $k$ vértices, onde cada um dos $k$
+        vértices possui um aresta que se conecta a cada um dos vértices
+        de $G_1$. Definimos $G$ como sendo o grafo composto por $G_2$
+        mais um vértice $v$ que possui $l$ arestas que o conecta
+        a vértices de
+        $S$.\par
+        Temos que $\kappa(G) = k$. De fato, por construção, a única forma de
+        tornarmos o grafo desconexo pela remoção de vértices é removendo completamente o conjunto
+        $S$. Como $|S| = k$, segue que $\kappa(G)=k$.
+        Temos que $\kappa'(G) = l$. De fato, por construção, a única forma de tornar
+        esse grafo desconexo pela  remoção de arestas é removendo
+        as $l$ arestas que conectam o vértice $v$ à $S$.
+        Portanto, $\kappa'(G)=l$.
+    \end{proof}  
+
+    \paragraph{E35.} Seja $G$ um grafo $k$-conexo e seja $G'$ o grafo
+    obtido de $G$ acrescentando-se um novo vértice e arestas ligando
+    esse vértice a todos os vértices de $G$. Prove que $G'$ é
+    $(k+1)$-conexo.
+
+    \paragraph{Solução:}
+    \begin{proof}
+        Seja $G$ um grafo $k$-conexo e seja $G'$ o grafo obtido de $G$
+        acrescentando-se um novo vértice $v$ e arestas ligando esse vértice
+        a todos os vértices de $G$. \newline
+        Suponha, por absurdo, que exista um conjunto separador $S\in V(G')$
+        com $k$ vértices e seja $H := G'-S$. Sabemos que $S$ deve conter
+        $v$, caso contrário, existe um caminho entre quaisquer dois
+        vértices $x$ e $y$ de $H$ dado por $(x,v,y)$, e portanto $S$ não
+        seria separador. Sabemos que $G'-v = G$ é conexo. Portanto $S-v$
+        deve ser um conjunto separador para $G'-v=G$, mas $|S-v| = k-1$, o
+        que contraria nossa hipótese sobre $G$ ser $k$-conexo. Portanto,
+        $G'$ é $(k+1)$-conexo.
+    \end{proof}
+
+    \paragraph{E36.} Prove que se $G$ é um grafo bipartido $k$-regular
+    conexo, então $G$ é $2$-conexo. \smallskip \newline
+    [Sugestão: Suponha que $G$ tenha um vértice-de-corte $x$. Então $G =
+    G_1 \cup G_2$, e $V(G_1)\cap V(G_2)=\{x\}$. Analise a quantidade de
+    arestas em $G_1$ (lembrando que $G$ é $k$-regular) e deduza - por
+    essa análise - alguma informação sobre $k$ relativamente a
+    $g_{G_1}(x)$, d emodo a obter uma contradição.]
+    \paragraph{Solução:}
+    \begin{proof}
+        Seja $G$ um grafo com uma bipartição $(X,Y)$, $k$-regular e  conexo.\newline
+        Suponha, por absurdo, que $G$ possui um vértice de corte $x$.
+        Sem perda de generalidade, suponha que $x \in X$.
+        Então existem dois conjuntos $G_1$ e $G_2$ tais que $G_1 \cup
+        G_2 = G$, e $V(G_1)\cap V(G_2)=\{x\}$. $G_1$ também deve ser
+        bipartido. Seja $(X_1, Y_1)$ a bipartição de $G_1$, com $X_1
+        \subset
+        X$ e $Y_1 \subset Y$.\newline
+        Note que devemos ter 
+        \begin{equation}
+            g_{G_1}(x) < k
+        \end{equation}
+        pois, caso contrário, $x$
+        não seria um vértice de corte. Além disso, o número de arestas
+        que partem de $X_1$ para $Y_1$ deve ser igual ao número de
+        arestas que parte de $Y_1$ para $X_1$. Como $x\in X_1$, então
+        temos que
+        \begin{align*}
+            (|X_1|-1)k + g_{G_1}(x) &= |Y_1|k\\
+            g_{G_1}(x) &= (|Y_1| -|X_1|+1)k\\
+        \end{align*}
+        Note que devemos ter $|Y_1| - |X_1|+1 \geq 1$, pois $x$ é vértice de
+        corte. Mas então temos que
+        \begin{equation}
+            g_{G_1}(x) \geq k
+        \end{equation}
+        que, por $(1)$, é um absurdo.
+    \end{proof}
+    \paragraph*{E37} Prove que se $G$ é grafo $k$-conexo, e
+    $k\geq2$, então qualquer conjunto de $k$-vértices de $G$
+    pertence a um mesmo circuito de $G$. Tal circuito pode conter outros
+    vértices adicionais além dos $k$ vértices fixados.)
+    \begin{proof}
+        Seja $G = (V,A)$ um grafo $k$-conexo, com $k\geq2$. Seja
+        $S \subset V$ um conjunto qualquer de $k$ vértices. \par
+        Suponha, por absurdo, que não exista um circuito que
+        contenha todos os vértices de $S$. Seja $C = (v_1, \dots,
+        v_m)$ um circuito que
+        possui a maior quantidade de vértices de vértices de $S$.
+        Defina $S_1 := S \cap C$ e $S_2 := S - S_1$. Devemos ter $|S_1|
+        \geq 2$, pois como $k \geq 2$ então, pelo \textbf{corolário 8.3}
+        entre quaisquer dois vértices $u$ e $w$ de $G$ existem pelo
+        menos dois caminhos
+        independentes $P_1$ e $P_2$ que ligam $u$ a $w$ e portanto
+        $P_1\cdot P_2^{-1}$ é um circuito que possui dois vértices de
+        $S$.\par
+        Seja $x$ um vértice qualquer de $S_2$ e seja $W\subseteq
+        C$ um conjunto de vértices de tamanho $l = |S_1|$ tal que cada caminho
+        do leque $x-W$ - como definido e provado existência em aula -
+        contenha somente um vértice de $C$. Tal leque divide
+        o circuito $C$ em $l+1$ seções da forma $(v_i,\dots,v_j)$
+        onde $v_i$ e $v_j$ pertencem ao leque. Portanto, pelo princípio
+        da casa dos pombos existe pelo menos uma seção $P = (v_i, \dots,v_j)$ de
+        $C$ tal que $P\cap S_1 = \{v_i, v_j\}$ ou $P\cap S_1 =
+        \emptyset$. Seja $P_1$ e $P_2$ os caminhos do leque que contém
+        $v_i$ e $v_j$ respectivamente. Então
+        $(v_1,\dots,v_i)\cdot P_1 \cdot P_2^{-1} \cdot (v_j, \dots,
+        v_m)$ é um circuito e contém mais vértces de $S$ do que $C$, o
+        que é um absurdo. Portanto deve existir um ciruito que contém
+        todos os vértices de $S$.
+    \end{proof}
+
+\paragraph{E38.}Seja $G=(V,A)$ um grafo 2-conexo de ordem $n$, e sejam
+$v_1$, $v_2$, vértices de $G$. Sejam $n_1$ e $n_2$ inteiros
+positivos tais que $n_1+n_2=n$. Mostrque existe uma partição de $V$ em
+$V_1\cup V_2$ com $|V_1| = n_1$ e $|V_2| = n2$, tal que $G[V_i]$
+é conexo, e $v_i \in V_i$ para  $i=1,2$.
+\begin{proof}
+    Seja $G=(V,A)$ um grafo 2-conexo de ordem $n$ e sejam $n_1$ e $n_2$
+    inteiros positivos tais que $n_1+n_2=n$.\par
+    Tome $T$ uma arvore geradora de $G$ e particione $V$ em partes
+    $T_1$ e
+    $T_2$ com $V(T_1) = V_1$ e $V(T_2)=V_2$ tais que $v_1 \in V_1$ e $v_2 \in V_2$. Se $|V_1| = n_1$
+    então não há o que provar. Portanto, suponha sem perda de
+    generalidade que $|V_1| > n_1$. Nesse caso, iremos aplicar um
+    procedimento a fim de pegar vértices de $V_2$ e tranferí-los para
+    $V_1$.\par
+    Enquanto tivermos $|V_1| > n_1$ faça o seguinte:
+    \begin{enumerate}
+        \item Se existe uma folha $v$ diferente de  de $T_1$ vizinha de algum vértice de $T_2$
+            faça:
+        \item \hspace*{20px} $T_1 \Recebe T_1 -v \qquad T_2 \Recebe
+            T_2 + v$
+        \item senão faça:
+        \item    \hspace*{20px} Seja $x$ um vértice de $T_1$  mais distante
+            possível de $v_1$ que possui algum vizinho de $T_2$.
+            Sabemos que tal vértice existe e é distinto de $v_1$ pois, caso contrário, então $v_1$ seria de corte em $G$, o que
+            contradiz a hipótese sobre $G$.
+        \item \hspace*{20px} Tome $x$ com raiz de $T_1$. Como $x$ não
+            é folha, então $x$ deve ter pelo menos duas
+            subárvores distintas. Sabemos também que nenhuma dessas
+            subárvores possui um vértice $w$ que possui
+            vizinhos em $T_2$, pois, caso tivesse, contradiria a
+            hipótese sobre $x$ ser mais distante de $v_1$.
+        \item \hspace*{20px} Para cada subárvore $T_{1_i}$ de $x$
+            faça:
+        \item \hspace*{40px} Se $T_{1_i}$ não contém $v_1$ faça:
+        \item \hspace*{60px} Tome o vértice $u$ filho de $x$.
+            Como $u$ não possui vizinhos em $T_2$ (linha 5), então
+            $u$ possui vizinho em outra sub
+            $T_{1_j}$.
+        \item \hspace*{60px} Tome $k$ um vértice
+            vizinho de $u$ em $T_{1_j}$.
+        \item \hspace*{60px} $x \Recebe x -T_{1_i} \qquad k \Recebe k +
+            T_{1_1}\qquad \Comment \text{Transfere a subárvore de $x$
+            para $k$}$
+        \item \hspace*{40px} $T_1 \Recebe T_1 -x \qquad T_2 \Recebe
+            T_2 + x$
+    \end{enumerate}
+
+    Ao fim da última iteração do laço da linha 9, $x$ contém apenas
+    uma subárvore: a que contém $v_1$. Portanto, agora é possível
+    transferi-lo para a árvore $T_2$ sem perder a conexidade.
+    Repetindo esse procedimento até atingirmos $|V_1 = n_1|$
+    conseguimos a árvore específicada no enunciado.
+\end{proof}
+
+\end{document}
