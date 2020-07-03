@@ -501,19 +501,184 @@ hamiltoniano. Uma prova segue:
             \node[nodeStyle] (8) at (0:3)   {$v_8$};
             \node[nodeStyle] (9) at (36:3)  {$v_9$};
             \node[nodeStyle] (10) at (72:3) {$v_{10}$};
-            \foreach \from/\to in {1/2,2/3,3/4,4/5,5/6,6/7,7/8,8/9,
-                                   9/10, 10/1}
+            \foreach \from/\to in {2/3,3/4,4/5,5/6,7/8,8/9,
+                                   9/10, 10/1, 3/8, 4/9, 5/10}
                 \path[blackEdge] (\from) edge (\to);
-            \foreach \from/\to in {1/5,1/6,1/7}
+            \foreach \from/\to in {1/2, 1/6, 6/7, 2/7}
                 \path[blackEdge] (\from) edge[color=blue] (\to);
-            \foreach \from/\to in {10/4,10/5,10/6}
-                \path[blackEdge] (\from) edge[color=blue] (\to);
-            \foreach \from/\to in {2/5,1/6,1/7}
+           
+        \end{tikzpicture}
+        \caption{Circuito formado em azul, caso arestas liguem apenas
+         vértices opostos}
+    \end{subfigure}
+            \caption{Prova de que o grafo de Petersen não é Hamiltoniano}
+\end{figure}
+Como todo vértice possui grau 3, então existem 5 arestas cruzando o
+    circuito da \textbf{Figura 7 (a)}.\par
+    Note que cada aresta deve ligar
+    vértices cuja distancia em $C$ seja no mínimo 4, caso contrário,
+    formamos um circuito de comprimento menor que 5, um absurdo. Se as
+    arestas ligam apenas vértices opostos, isso é, vértices cuja
+    distancia em $C$ vale 5, então formariamos um circuito de tamanho 4,
+    como mostrado na \textbf{Figura 7 (b)}, portanto, existe pelo menos
+    uma aresta que liga dois vértices tal que a distancia entre
+    eles em $C$ valha 4.\par
+    Sem perda de generalidade, suponha que tal
+    aresta ligue o vétice $v_1$ ao $v_5$. Sabemos então que o vértice
+    $v_6$ deve se conectar ao vértice $v_2$ ou $v_{10}$. Masi se $v_6$ se
+    liga à $v_2$ então $(v_1,v_5,v_6,v_2)$ é um circuito de tamanho 4,
+    um absurdo.
+    Por outro lado, se $v_6$ se liga à $v_{10}$ então
+    $(v_1,v_5,v_6,v_{10})$, é um circuito de tamanho 4, um absurdo.
+    Portanto o grafo de Petersen não pode ser Hamiltoniano.
+\end{proof}
+Apesar de não ser um grafo hamiltoniano, o grafo de Petersen é o menor grafo
+\textbf{hipo-hamiltoniano}. Um grafo $G$ é considerado hipo-hamiltoniano se
+$G$ não é hamiltoniano mas $G-v$ é hamiltoniano para todo $v \in V(G)$.
+\section{Emparelhamento}
+Um \textbf{emparelhamento} em um grafo é um conjunto $E$ de arestas duas a
+duas não adjacentes. Dado um grafo $G$ dizemos que um vértice $x\in
+V(G)$ é coberto por $E$ se existe alguma aresta em $E$ que incide em
+$x$. Um emparelhamento é dito \textbf{perfeito} se cobre todas as
+arestas de $G$. \par
+O grafo de Petersen possui um emparelhamento perfeito. Tal
+emparelhamento é facilmente visto pela Figura 1. Basta tomar todas as
+arestas que ligam os vértices externos aos vértices internos da figura.
+Tal emparelhamento pode ser visto em vermelho na \textbf{Figura 8}.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[shorten >=0.5pt, auto,
+        every node/.style={scale=0.7}, scale=0.7]
+        \tikzstyle{nodeStyle} = [circle,draw=black,fill=white]
+        \tikzstyle{blackEdge} = [draw=black, line width=1]
+        \node[nodeStyle] (6) at (90:1.5) {6};
+        \node[nodeStyle] (1) at (90:3) {1};
+        \node[nodeStyle] (7) at (162:1.5) {7};
+        \node[nodeStyle] (2) at (162:3) {2};
+        \node[nodeStyle] (8) at (234:1.5) {8};
+        \node[nodeStyle] (3) at (234:3) {3};
+        \node[nodeStyle] (9) at (306:1.5) {9};
+        \node[nodeStyle] (4) at (306:3) {4};
+        \node[nodeStyle] (10) at (378:1.5) {10};
+        \node[nodeStyle] (5) at (378:3) {5};
+        \foreach \from/\to in {1/2, 2/3, 3/4, 4/5, 5/1,
+                               6/8, 8/10, 10/7, 7/9, 9/6}
+            \path[blackEdge] (\from) edge (\to);
+
+        \foreach \from/\to in {1/6, 2/7, 3/8, 4/9, 5/10}
+            \path[blackEdge] (\from) edge[color=red] (\to); 
+    \end{tikzpicture}
+    \caption{Emparelhamento perfeito no grafo de Petersen}
+\end{figure}
+Naturalmente, esse emparelhamento perfeito também é um emparelhamento
+máximo, ou seja, não existem nenhum outro emparelhamento com
+cardinalidade maior.\par
+Outro conceito que anda muito próximo de emparelhamentos é o caonceito
+de \textbf{cobertura} em um grafo. Uma cobertura em um grafo $G$ é um
+conjunto $K \subseteq V(G)$  tal que toda aresta de $G$ tem pelo menos
+um dos extremos em $K$. Naturalmente, devemos ter $|E| \leq |K|$,
+$\forall E, \forall K$ em $G$. Isso ocorre porque pelo menos um dos
+extremos de cada aresta em $|E|$ deve pertencer a $|K|$. Portanto, se
+encontrarmos uma covertura com apenas 5 vértices para o grafo de
+Petersen, teríamos certeza que essa cobertura é mínima. Entretanto, tal
+emparelhamento não existe, o mínimo que conseguimos fazer é com 6
+vértices. A \textbf{Figura 9} mostra tal cobertura. 
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[shorten >=0.5pt, auto,
+        every node/.style={scale=0.7}, scale=0.7]
+        \tikzstyle{nodeStyle} = [circle,draw=black,fill=white]
+        \tikzstyle{blackEdge} = [draw=black, line width=1]
+        \node[nodeStyle, fill=red!20] (6) at (90:1.5) {6};
+        \node[nodeStyle] (1) at (90:3) {1};
+        \node[nodeStyle, fill=red!20] (7) at (162:1.5) {7};
+        \node[nodeStyle, fill=red!20] (2) at (162:3) {2};
+        \node[nodeStyle, fill=red!20] (8) at (234:1.5) {8};
+        \node[nodeStyle] (3) at (234:3) {3};
+        \node[nodeStyle] (9) at (306:1.5) {9};
+        \node[nodeStyle, fill=red!20] (4) at (306:3) {4};
+        \node[nodeStyle] (10) at (378:1.5) {10};
+        \node[nodeStyle, fill=red!20] (5) at (378:3) {5};
+        \foreach \from/\to in {1/2, 2/3, 3/4, 4/5, 5/1,
+                               6/8, 8/10, 10/7, 7/9, 9/6,
+                               1/6, 2/7, 3/8, 4/9, 5/10}
+            \path[blackEdge] (\from) edge (\to);
+    \end{tikzpicture}
+    \caption{Cobertura mínima  no grafo de Petersen}
+\end{figure}
+Uma pova de que são necessários pelo menos 6 vértices para cobrir o
+grafo de Petersen segue.
+\begin{proof}
+    Iremos nos concentrar em dois conjuntos de arestas, um que chamarei
+    de central e está destacado em azul na \textbf{Figura 10 (a)} e outro que
+    chamarei de externo e que está destacado em vermelho na \textbf{Figura 10 (b)}
+
+    \begin{figure}[H]
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \begin{tikzpicture}[shorten >=0.5pt, auto,
+            every node/.style={scale=0.7}, scale=0.7]
+            \tikzstyle{nodeStyle} = [circle,draw=black,fill=white]
+            \tikzstyle{blackEdge} = [draw=black, line width=1]
+            \node[nodeStyle] (6) at (90:1.5) {6};
+            \node[nodeStyle] (1) at (90:3) {1};
+            \node[nodeStyle] (7) at (162:1.5) {7};
+            \node[nodeStyle] (2) at (162:3) {2};
+            \node[nodeStyle] (8) at (234:1.5) {8};
+            \node[nodeStyle] (3) at (234:3) {3};
+            \node[nodeStyle] (9) at (306:1.5) {9};
+            \node[nodeStyle] (4) at (306:3) {4};
+            \node[nodeStyle] (10) at (378:1.5) {10};
+            \node[nodeStyle] (5) at (378:3) {5};
+            \foreach \from/\to in {1/2,2/3,3/4,4/5,5/1,
+                                   1/6, 2/7, 3/8, 4/9, 5/10}
+                \path[blackEdge] (\from) edge (\to);
+            \foreach \from/\to in {6/8,8/10,10/7,7/9,9/6}
                 \path[blackEdge] (\from) edge[color=blue] (\to);
         \end{tikzpicture}
-        \caption{Circuito}
+        \caption{Conjunto interno de arestas}
     \end{subfigure}
-        \caption{Provade que o grafo de Petersen não é Hamiltoniano}
+     \begin{subfigure}{.5\textwidth}
+        \centering
+        \begin{tikzpicture}[shorten >=0.5pt, auto,
+            every node/.style={scale=0.7}, scale=0.7]
+            \tikzstyle{nodeStyle} = [circle,draw=black,fill=white]
+            \tikzstyle{blackEdge} = [draw=black, line width=1]
+            \node[nodeStyle] (6) at (90:1.5) {6};
+            \node[nodeStyle] (1) at (90:3) {1};
+            \node[nodeStyle] (7) at (162:1.5) {7};
+            \node[nodeStyle] (2) at (162:3) {2};
+            \node[nodeStyle] (8) at (234:1.5) {8};
+            \node[nodeStyle] (3) at (234:3) {3};
+            \node[nodeStyle] (9) at (306:1.5) {9};
+            \node[nodeStyle] (4) at (306:3) {4};
+            \node[nodeStyle] (10) at (378:1.5) {10};
+            \node[nodeStyle] (5) at (378:3) {5};
+            \foreach \from/\to in {
+                                   1/6, 2/7, 3/8, 4/9, 5/10,
+                                   6/8,8/10,10/7,7/9,9/6}
+                \path[blackEdge] (\from) edge (\to);
+            \foreach \from/\to in {1/2,2/3,3/4,4/5,5/1}
+                \path[blackEdge] (\from) edge[color=red] (\to);
+           
+        \end{tikzpicture}
+        \caption{Conjunto externo de arestas}
+    \end{subfigure}
+            \caption{Prova cobertura mínima do grafo de Petersen}
 \end{figure}
+Vamos olhar agora apenas para o conjunto central. Esse conjunto possui 5
+arestas. Os únicos vértices que são incidentes às arestas do conjunto
+    central são os vértices $6,7,8,9,10$. Como cada um desses vértices
+    incide em no máximo 2 arestas do conjunto, então são necessários
+    pelo menos 3 vértices dentre $6,7,8,9,10$ para cobrir o conjunto central.\par
+    Analogamente, o conjunto externo possui 5 arestas e somente os
+    vértices $1,2,3,4,5$ são incidentes à elas. Como cada um desses vértices incide em
+    exatamente duas arestas do conjunto, então para cobrir as 5 arestas
+    são necessários pelo menos 3 vértices dentre $1,2,3,4,5$.\par
+    Portanto, são necessários pelo menos 6 vértices para cobrir o grafo
+    de Petersen. Como encontramos um conjunto de vértices de tamanho 6
+    que cobre o grafo de Petersen, segue que esse é o tamanho mínimo de
+    um conjunto de vértices que cobre o grafo de Petersen.
 \end{proof}
+
 \end{document}
